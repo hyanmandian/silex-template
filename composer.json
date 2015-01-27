@@ -1,0 +1,30 @@
+{
+    "name": "fabpot/silex-skeleton",
+    "description": "A pre-configured skeleton for the Silex microframework",
+    "license": "MIT",
+    "type": "project",
+    "require": {
+        "php": ">=5.3.3",
+        "silex/silex": "~1.2",
+        "doctrine/common": "2.4.*@dev",
+        "doctrine/dbal": "2.4.*@dev",
+        "doctrine/orm": "2.4.*@dev",
+        "dflydev/doctrine-orm-service-provider": "1.0.*@dev",
+        "twig/twig": "~1.18",
+        "symfony/twig-bridge": "~2.6"
+    },
+    "autoload": {
+        "psr-0": { "": "app/" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.0.x-dev"
+        }
+    },
+    "scripts": {
+        "run": [
+            "echo 'Started web server on http://localhost:8888'",
+            "php -S localhost:8888 -t web/ web/index_dev.php"
+        ]
+    }
+}
