@@ -1,6 +1,6 @@
 {
-    "name": "fabpot/silex-skeleton",
-    "description": "A pre-configured skeleton for the Silex microframework",
+    "name": "Silex Template",
+    "description": "A pre-configured template for the Silex",
     "license": "MIT",
     "type": "project",
     "require": {
@@ -13,7 +13,8 @@
         "twig/twig": "~1.18",
         "symfony/twig-bridge": "~2.6",
         "monolog/monolog": "~1.12",
-        "igorw/config-service-provider": "1.2.*@dev"
+        "igorw/config-service-provider": "1.2.*@dev",
+        "swiftmailer/swiftmailer": "~5.3"
     },
     "autoload": {
         "psr-0": { "": "app/" }

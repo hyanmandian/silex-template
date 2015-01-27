@@ -14,5 +14,13 @@ return array(
 			'password'  =>  '',
 			'port' => 3306,
 		),
+		'mail' => array(
+	    	'host' => 'smtp.gmail.com',
+		    'port' => '465',
+		    'username' => 'email@gmail.com',
+		    'password' => 'senha',
+		    'encryption' => 'ssl',
+		    'auth_mode' => 'login',
+		),
 	),
 );
