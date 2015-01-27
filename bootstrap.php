@@ -3,21 +3,37 @@
 require_once __DIR__.'/vendor/autoload.php';
 
 $app = new Silex\Application();
-$config = require_once __DIR__ . '/app/config/app.php';
-$database = require_once __DIR__ . '/app/config/database.php';
 
-date_default_timezone_set($config['timezone']);
+$env = getenv('APP_ENV');
 
-$app['debug'] = $config['debug'];
+$app->register(new Igorw\Silex\ConfigServiceProvider(__DIR__."/app/config/$env.php"));
+$app->register(new Igorw\Silex\ConfigServiceProvider(__DIR__."/app/routes.php"));
+
+date_default_timezone_set($app['config']['timezone']);
+
+$app['debug'] = $app['config']['debug'];
 
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 
+$app->register(new Silex\Provider\SessionServiceProvider());
+
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
-    'twig.path' => __DIR__ . '/view',
+    'twig.path' => __DIR__ . '/app/view',
+    'twig.options' => array(
+        'cache' => __DIR__.'/app/storage/cache',
+    ),
+));
+
+$app->register(new Silex\Provider\HttpCacheServiceProvider(), array(
+    'http_cache.cache_dir' => __DIR__.'/app/storage/cache/',
+));
+
+$app->register(new Silex\Provider\MonologServiceProvider(), array(
+    'monolog.logfile' => __DIR__.'/app/storage/log/application.log',
 ));
 
 $app->register(new Silex\Provider\DoctrineServiceProvider, array(
-    "db.options" => $database,
+    "db.options" => $app['config']['database'],
 ));
 
 $app->register(new Dflydev\Silex\Provider\DoctrineOrm\DoctrineOrmServiceProvider, array(
@@ -34,8 +50,6 @@ $app->register(new Dflydev\Silex\Provider\DoctrineOrm\DoctrineOrmServiceProvider
     ),
 ));
 
-$routes = require_once __DIR__ . '/app/routes.php';
-
-foreach($routes as $name => $route) {
+foreach($app['router'] as $name => $route) {
     $app->mount($route['pattern'], new $route['controller']);
 }

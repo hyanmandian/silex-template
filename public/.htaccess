@@ -1,3 +1,5 @@
+SetEnv APP_ENV development
+
 Options -MultiViews
 
 RewriteEngine On

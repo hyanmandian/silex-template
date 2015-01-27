@@ -1,8 +1,10 @@
 <?php
 
 return array(
-	'home' => array(
-		'pattern' => '/',
-		'controller' => 'Controller\\HomeController',
+	'router' => array(
+		'home' => array(
+			'pattern' => '/',
+			'controller' => 'Controller\\HomeController',
+		),
 	),
 );
